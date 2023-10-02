@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 
 const movimentoSchema = new mongoose.Schema({
-  _id:{
+  nomeMovimento:{
     type:String,
     required: true,
-    index: true
+    index: true,
   },
 });
 

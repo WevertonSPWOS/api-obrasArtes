@@ -1,11 +1,18 @@
 const mongoose = require('mongoose');
 
 const artistaSchema = new mongoose.Schema({
-  _id:{
+  nomeArtista:{
     type:String,
     required: true,
-    index: true
   },
+  index:{
+    type:Number,
+    index:true,
+    required:true,
+    unique:true,
+    interger: true
+  },
+  
 });
 
 const Artista = mongoose.model('Artista', artistaSchema);
