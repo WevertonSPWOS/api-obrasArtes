@@ -12,6 +12,11 @@ const artistaSchema = new mongoose.Schema({
     unique:true,
     interger: true
   },
+  linkFoto:{
+    type:String,
+    required:true,
+    unique:true
+  }
   
 });
 
