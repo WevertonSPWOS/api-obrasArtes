@@ -1,0 +1,60 @@
+const mongoose = require("mongoose");
+
+// Existem 2 jeitos de referenciar uma chave primária no validador, o primeiro é como no Artista:
+
+//- mongoose.model('NOME_TABELA').findOne({ NOME_ATRIBUTO: value })
+
+// no outro é importando o SCHEMA de outra pasta e chamando ele direto:
+
+// nome.findOne({NOME_ATRIBUTO: value})
+
+const Artista = require('../artista/artistaModel')   // referencia o modelo estrangeiro
+const movimento = require('../movimento/movimento') //referenciia o modelo estrangeiro
+
+const obraSchema = new mongoose.Schema({
+  nomeObra:{
+    type:String,
+    required: true,
+  },
+  fk_nomeArtista:{
+    type:String,
+    required:true,
+    ref:'Artista',
+    validate: {
+      validator: async function (value) {
+       // const artista_validacao = await mongoose.model('Artista').findOne({ nomeArtista: value });
+      const artista_validacao = await Artista.findOne({ nomeArtista: value });
+
+        return !!artista_validacao;
+      },
+      message: 'Artista não encontrado.',
+    }
+  },
+  fk_nomeMovimento:{
+    type:String,
+    required:true,
+    ref:'Movimento',
+    validate: {
+      validator: async function (value) {
+        const movimento_validacao = await movimento.findOne({ nomeMovimento: value });
+        return !!movimento_validacao;
+      },
+      message: 'Movimento não encontrado.',
+  }},
+  index:{
+    type:String,
+    index:true,
+    required:true,
+    unique:true,
+    integer: true
+  },
+
+  imagemUrl:{
+    type : String,
+    required : true,
+  }
+  });
+
+const Obra = mongoose.model('Obra', obraSchema);
+
+module.exports = Obra
