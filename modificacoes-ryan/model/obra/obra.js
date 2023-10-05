@@ -8,7 +8,7 @@ const mongoose = require("mongoose");
 
 // nome.findOne({NOME_ATRIBUTO: value})
 
-const artista = require('../artista/artistaModel')   // referencia o modelo estrangeiro
+const Artista = require('../artista/artistaModel')   // referencia o modelo estrangeiro
 const movimento = require('../movimento/movimento') //referenciia o modelo estrangeiro
 
 const obraSchema = new mongoose.Schema({
@@ -22,8 +22,8 @@ const obraSchema = new mongoose.Schema({
     ref:'Artista',
     validate: {
       validator: async function (value) {
-        const artista_validacao = await mongoose.model('Artista').findOne({ nomeArtista: value });
-        // const artista_validacao = await artista.findOne({ nomeArtista: value });
+       // const artista_validacao = await mongoose.model('Artista').findOne({ nomeArtista: value });
+      const artista_validacao = await Artista.findOne({ nomeArtista: value });
 
         return !!artista_validacao;
       },

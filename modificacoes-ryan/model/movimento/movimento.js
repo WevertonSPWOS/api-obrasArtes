@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+const artista = require("../artista/artistaModel")
 const movimentoSchema = new mongoose.Schema({
   nomeMovimento:{
     type:String,
@@ -10,21 +10,57 @@ const movimentoSchema = new mongoose.Schema({
     type:String,
     required: true,
   },
-
-  fk_nomeArtista:{
+//  pegando os nomes de artistas associados ao movimento por meio de uma array de obejtos
+  fk_nomeArtista:[
+    {
     type:String,
     required:true,
     ref:'Artista',
     validate: {
       validator: async function (value) {
-        const artista_validacao = await mongoose.model('Artista').find({ nomeArtista: value });
-        // const artista_validacao = await artista.findOne({ nomeArtista: value });
+       // const artista_validacao = await mongoose.model('Artista').find([{ nomeArtista: value }]);
+        const artista_validacao = await artista.find({ nomeArtista: value});
 
         return !!artista_validacao;
       },
       message: 'Artista não encontrado.',
     }
   },
+
+  {
+    type:String,
+    required:true,
+    ref:'Artista',
+    validate: {
+      validator: async function (value) {
+       // const artista_validacao = await mongoose.model('Artista').find([{ nomeArtista: value }]);
+        const artista_validacao = await artista.find({ nomeArtista: value});
+
+        return !!artista_validacao;
+      },
+      message: 'Artista não encontrado.',
+    }
+
+
+  }, 
+
+  {
+    type:String,
+    required:true,
+    ref:'Artista',
+    validate: {
+      validator: async function (value) {
+       // const artista_validacao = await mongoose.model('Artista').find([{ nomeArtista: value }]);
+        const artista_validacao = await artista.find({ nomeArtista: value});
+
+        return !!artista_validacao;
+      },
+      message: 'Artista não encontrado.',
+    }
+
+  }
+
+],
 
   
 

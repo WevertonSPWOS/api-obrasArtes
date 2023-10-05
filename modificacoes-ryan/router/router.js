@@ -79,8 +79,8 @@ rota.get("/obras/:index", async(req, res) => {
 
 rota.get("/movimento/:movimentoIndex", async(req,res) =>{
     try{
-        const indexMovimento = movimento.findOne({"movimentoIndex" : req.params.movimentoIndex})
-        res.status(200).json(index)
+        const indexMovimento = await movimento.findOne({"movimentoIndex" : req.params.movimentoIndex})
+        res.status(200).json(indexMovimento)
     }
 
     catch(error){
