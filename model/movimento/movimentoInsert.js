@@ -6,24 +6,24 @@ dotenv.config()
 //  tá com um bug de não pegar o dotenv, depois arrumo
 
 mongoose.connect("mongodb+srv://senai115:senai115@teste.8334gnw.mongodb.net/?retryWrites=true&w=majority",{
-    dbName:"api_obraArtes"
+    dbName:"api_obrasArtes"
 })
 .then(() =>{
 
-    const novoMovimento = new Movimento ({
+    const renascimento = new Movimento ({
         nomeMovimento:"Renascimento",
         descricaoMovimento:"A arte renascentista foi um movimento artístico que floresceu na Itália entre os séculos XIV e XVI. O movimento foi caracterizado por um retorno à arte e à cultura da antiguidade clássica, bem como por um novo foco no realismo e na perspectiva. Os artistas renascentistas buscaram representar o mundo de forma realista e humanista, colocando o homem no centro do universo.",
-        dataInicio: 1092,
-        dataTermino: 1092
+        dataInicio: 1400,
+        dataTermino: 1550
     
     })
     
-novoMovimento.save()
+renascimento.save()
 .then(() =>{
     console.log("Movimento salvo com sucesso")
 })
 .catch((err) =>{
-    console.log("Erro ao salvar artista :" + err)
+    console.log("Erro ao salvar movimento: " + err)
 })
 
 })
