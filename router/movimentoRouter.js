@@ -8,9 +8,10 @@ const Obras = require("../model/obra/obraModel")
 rota.get('/movimento/todos', (req,res) =>{
     
     // Pega todos os movimentos
-    Movimento.find().lean().sort({index:1})
+    Movimento.find().lean().sort({nomeMovimento:1})
     .then((listaMovimentos) =>{
 
+        
         //  Para cada movimento que ele buscou, ele cria uma nova propriedade atribuindo as obras relacionadas
         for(let movimento of listaMovimentos){
 
@@ -21,13 +22,15 @@ rota.get('/movimento/todos', (req,res) =>{
                 if(obrasRelacionadas.length != 0){
                     movimento.obras = obrasRelacionadas
                 }
-            })
-            .then(() =>{
-                res.status(200).json(listaMovimentos)
-                res.setHeader('Cache-Control','max-age=360, s-maxage=360, stale-while-revalidate')
+                
+                // Gambiarra para pegar o ultimo movimento e devolver a resposta
+                if(movimento.nomeMovimento == "Surrealismo"){
+                    res.setHeader('Cache-Control','max-age=360, s-maxage=360, stale-while-revalidate')
+                    res.json(listaMovimentos)
+    
+                }
             })
         }
-
     })
     .catch((err) =>{
 
