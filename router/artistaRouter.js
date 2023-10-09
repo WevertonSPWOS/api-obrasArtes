@@ -13,6 +13,7 @@ rota.get('/artista/todos', (req,res) =>{
     .sort({index:1})
     .then((resultado) => {
         if(resultado){
+            res.setHeader('Cache-Control','max-age=360, s-maxage=360, stale-while-revalidate')
             res.status(200).json(resultado)
         }
         else{
@@ -35,6 +36,7 @@ rota.get('/artista/lista' , (req,res) =>{
             resultado.forEach((Artista, index) => {
                 resultado_tratado[index + 1] = Artista.nomeArtista;
             });
+            res.setHeader('Cache-Control','max-age=360, s-maxage=360, stale-while-revalidate')
             res.status(200).json(resultado_tratado)
             
         }
@@ -52,7 +54,7 @@ rota.get('/artista/:nome' , (req,res) => {
     Artista.findOne({nomeArtista:req.params.nome})
     .then((resultado) => {
         if(resultado){
-
+            res.setHeader('Cache-Control','max-age=360, s-maxage=360, stale-while-revalidate')
             res.status(200).json(resultado)
         }
         else{
@@ -65,7 +67,7 @@ rota.get('/artista/:nome' , (req,res) => {
 })
 
 // Retorna o artista + as obras dele
-rota.get('/artista/:name/obra', (req, res) => {
+rota.get('/artista/:name/obras', (req, res) => {
 
     Artista.find({nomeArtista:req.params.name})
         .then((artista) => {
@@ -76,6 +78,7 @@ rota.get('/artista/:name/obra', (req, res) => {
                 Obras.find({fk_nomeArtista:req.params.name})
                 .sort({index: 1})
                 .then((obras) =>{
+                    res.setHeader('Cache-Control','max-age=360, s-maxage=360, stale-while-revalidate')
                     res.status(200).json(obras)
                 })
             }

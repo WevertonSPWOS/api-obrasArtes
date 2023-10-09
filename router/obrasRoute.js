@@ -7,6 +7,7 @@ rota.get('/obra/todos', (req,res) =>{
     .sort({index:1})
     .then((resultado) => {
         if(resultado){
+            res.setHeader('Cache-Control','max-age=360, s-maxage=360, stale-while-revalidate')
             res.status(200).json(resultado)
         }
         else{
@@ -30,7 +31,7 @@ rota.get('/obra/lista' , (req,res) =>{
             resultado.forEach((obra, index) => {
                 resultado_tratado[index + 1] = obra.nomeObra;
             });
-
+            res.setHeader('Cache-Control','max-age=360, s-maxage=360, stale-while-revalidate')
             res.status(200).json(resultado_tratado)
         }
         else{
@@ -48,7 +49,7 @@ rota.get('/obra/lista' , (req,res) =>{
     Obra.find({nomeObra:req.params.nome})
     .then((resultado) => {
         if(resultado){
-
+            res.setHeader('Cache-Control','max-age=360, s-maxage=360, stale-while-revalidate')
             res.status(200).json(resultado)
         }
         else{
