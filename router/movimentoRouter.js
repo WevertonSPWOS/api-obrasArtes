@@ -5,44 +5,29 @@ const Movimento  = require("../model/movimento/movimentoModel")
 const Obras = require("../model/obra/obraModel")
 
 
-rota.get('/movimento/todos', (req,res) =>{
-    
-    // Pega todos os movimentos
-    Movimento.find().lean().sort({nomeMovimento:1})
-    .then((listaMovimentos) =>{
+rota.get('/movimento/todos', async (req, res) => {
+    try {
+        // Pega todos os movimentos
+        const listaMovimentos = await Movimento.find().lean().sort({ nomeMovimento: 1 });
 
-        
-        //  Para cada movimento que ele buscou, ele cria uma nova propriedade atribuindo as obras relacionadas
-        for(let movimento of listaMovimentos){
+        for (let movimento of listaMovimentos) {
+            const obrasRelacionadas = await Obras.find({ fk_nomeMovimento: movimento.nomeMovimento }).sort({ nomeObra: 1 });
 
-            Obras.find({fk_nomeMovimento : movimento.nomeMovimento})
-            .then((obrasRelacionadas) =>{
-
-                //Compara se está vazio a lista de obras
-                if(obrasRelacionadas.length != 0){
-                    movimento.obras = obrasRelacionadas
-                }
-                
-                // Gambiarra para pegar o ultimo movimento e devolver a resposta
-                if(movimento.nomeMovimento == "Surrealismo"){
-                    res.setHeader('Cache-Control','max-age=360, s-maxage=360, stale-while-revalidate')
-                    res.json(listaMovimentos)
-    
-                }
-            })
+            if (obrasRelacionadas.length > 0) {
+                movimento.obras = obrasRelacionadas;
+            }
         }
-    })
-    .catch((err) =>{
 
-        res.status(500).json({"code": "500", "error": err});
-
-    })
-
-})
+        res.setHeader('Cache-Control', 'max-age=360, s-maxage=360, stale-while-revalidate');
+        res.json(listaMovimentos);
+    } catch (err) {
+        res.status(500).json({ "code": "500", "error": err });
+    }
+});
 
 rota.get('/movimento/lista' , (req,res) =>{
     Movimento.find()
-    .sort({index:1})
+    .sort({nomeMovimento:1})
     .then((resultado) => {
         if(resultado){
 

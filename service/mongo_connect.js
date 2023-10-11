@@ -1,8 +1,9 @@
-const dotenv = require("dotenv") 
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
-dotenv.config() // configurando as variaveis de ambiente
+const dotenv = require('dotenv')
+
+dotenv.config({path: "../../.env"})
 
 async function conectar_bd() {
 ''

@@ -1,13 +1,8 @@
 const Movimento = require("./movimentoModel")
 const mongoose = require('mongoose')
-const dotenv = require('dotenv')
-dotenv.config()
+const conectar_bd = require('../../service/mongo_connect')
 
-//  tá com um bug de não pegar o dotenv, depois arrumo
-
-mongoose.connect("mongodb+srv://senai115:senai115@teste.8334gnw.mongodb.net/?retryWrites=true&w=majority",{
-    dbName:"api_obraArtes"
-})
+conectar_bd()
 .then(() =>{
 
     const novoMovimento = new Movimento ({

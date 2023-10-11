@@ -21,23 +21,25 @@ app.use(cors()) // ativando o cross origem resourse share para a api aceitar mul
 
 //Rotas
 
-app.use('',rotaArtista)
-app.use('',rotaMovimento)
-app.use('',rotaObra)
-
 app.get('/', (req,res) =>{
 
     try{
         conectar_bd()
     }
     catch{
-        res.json({"Server Status" : "500 INTERNAL ERROR","Documentation":"https://github.com/WevertonSPWOS/api-obrasArtes", "Marketplace ":" "})
+        res.json({"Server Status" : "500 INTERNAL ERROR","Documentation":"https://github.com/WevertonSPWOS/api-obrasArtes", "Marketplace ":" https://rapidapi.com/WevertonSPWOS/api/api-obraartes"})
     }
     finally{
-        res.json({"Server Status":"200 OK", "Documentation":"https://github.com/WevertonSPWOS/api-obrasArtes", "Marketplace ":" "},).status(200)
+        res.json({"Server Status":"200 OK", "Documentation":"https://github.com/WevertonSPWOS/api-obrasArtes", "Marketplace ":"https://rapidapi.com/WevertonSPWOS/api/api-obraartes "},).status(200)
 
     }
 })
+
+app.use('',rotaArtista)
+app.use('',rotaMovimento)
+app.use('',rotaObra)
+
+
 //Middleware caso não ache a rota
 
 app.use((req,res,next) => {res.status(404).json("Recurso não encontrado")})

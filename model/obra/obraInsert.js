@@ -1,12 +1,9 @@
 const Obra = require("./obraModel")
 const mongoose = require('mongoose')
+const conectar_bd = require('../../service/mongo_connect')
 
-
-mongoose.connect("mongodb+srv://senai115:senai115@teste.8334gnw.mongodb.net/?retryWrites=true&w=majority",{
-    dbName:"api_obraArtes"
-})
+conectar_bd()
 .then(() =>{
-
 
     const novaObra = new Obra({
         nomeObra:'Mona Lisa',

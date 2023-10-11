@@ -1,14 +1,14 @@
 const Artista = require("./artistaModel")
 const mongoose = require('mongoose')
+const conectar_bd = require('../../service/mongo_connect')
 
-mongoose.connect("mongodb+srv://senai115:senai115@teste.8334gnw.mongodb.net/?retryWrites=true&w=majority",{
-    dbName:"api_obrasArtes"
-}).then(() => {
+conectar_bd()
+.then(() => {
 
     const novoArtista = new Artista({
-        nomeArtista:'Leonardo da Vinci',
+        nomeArtista:'Marcos teste',
         index:2,
-        linkFoto:"https://upload.wikimedia.org/wikipedia/commons/archive/b/ba/20101125233907%21Leonardo_self.jpg"
+        linkFoto:"Testando .env"
     })
     
     novoArtista.save()
