@@ -1,23 +1,30 @@
-const express = require("express") //Importa o Express
-const app = express() // Importa o servidor do Express
+// Import das bibliotecas
+
+const express = require("express") 
+const app = express() 
 const dotenv = require("dotenv") 
 const cors = require('cors')
+
+// Import das rotas 
 
 const rotaArtista = require('./router/artistaRouter')
 const rotaMovimento = require('./router/movimentoRouter')
 const rotaObra = require('./router/obrasRoute')
+const rotaComentario = require("./router/comentarioRouter")
 
-dotenv.config() // configurando as variaveis de ambiente
-
-// Conectando ao servidor
+//Import dos services
 const conectar_bd = require('./service/mongo_connect')
 
+// Conectando ao Banco de dados e Variaveis de ambiente
 conectar_bd()
+dotenv.config() 
+
 
 //Configurando os middleware
 
 app.use(cors()) // ativando o cross origem resourse share para a api aceitar multiplos servidores enviando e recebendo dados.
-// conectar_bd()
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json())
 
 //Rotas
 
@@ -38,7 +45,7 @@ app.get('/', (req,res) =>{
 app.use('',rotaArtista)
 app.use('',rotaMovimento)
 app.use('',rotaObra)
-
+app.use('',rotaComentario)
 
 //Middleware caso não ache a rota
 

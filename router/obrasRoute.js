@@ -2,6 +2,8 @@ const express = require("express")
 const rota = express.Router();
 const Obra  = require("../model/obra/obraModel");
 
+
+
 rota.get('/obra/todos', (req,res) =>{
     Obra.find()
     .sort({index:1})

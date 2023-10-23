@@ -6,9 +6,8 @@ const Obras = require("../model/obra/obraModel")
 
 const rota = express.Router();
 
-// artista
-
 rota.get('/artista/todos', (req,res) =>{
+    try{
     Artista.find()
     .sort({index:1})
     .then((resultado) => {
@@ -16,14 +15,14 @@ rota.get('/artista/todos', (req,res) =>{
             res.setHeader('Cache-Control','max-age=360, s-maxage=360, stale-while-revalidate')
             res.status(200).json(resultado)
         }
-        else{
-            res.status(404).json({"code" : "404","Error:":"Resource not found"})            
-        }
     })
-    .catch((err) =>{
+}
+    catch(err) {
         res.status(500).json({"code": "500", "error": err});
-    })
+    }
 })
+
+//Lista todos os artistas
 
 rota.get('/artista/lista' , (req,res) =>{
     Artista.find()
@@ -49,6 +48,8 @@ rota.get('/artista/lista' , (req,res) =>{
     })
 })
 
+// Rota de pesquisar o artista pelo nome
+
 rota.get('/artista/:nome' , (req,res) => {
 
     Artista.findOne({nomeArtista:req.params.nome})
@@ -66,7 +67,9 @@ rota.get('/artista/:nome' , (req,res) => {
     })
 })
 
+
 // Retorna o artista + as obras dele
+
 rota.get('/artista/:name/obras', (req, res) => {
 
     Artista.find({nomeArtista:req.params.name})
@@ -88,9 +91,6 @@ rota.get('/artista/:name/obras', (req, res) => {
             res.status(500).json({ error: err.message });
         });
 });
-
-
-
 
 
 module.exports = rota

@@ -16,7 +16,18 @@ const artistaSchema = new mongoose.Schema({
     type:String,
     required:true,
     unique:true
-  }
+  },
+  fk_nomeMovimento:{
+    type:String,
+    required:true,
+    ref:'Movimento',
+    validate: {
+      validator: async function (value) {
+        const movimento_validacao = await movimento.findOne({ nomeMovimento: value });
+        return !!movimento_validacao;
+      },
+      message: 'Movimento não encontrado.',
+  }},
   
 });
 

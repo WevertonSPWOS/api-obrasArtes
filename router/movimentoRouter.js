@@ -3,23 +3,33 @@ const rota = express.Router();
 
 const Movimento  = require("../model/movimento/movimentoModel")
 const Obras = require("../model/obra/obraModel")
-
+const Artista = require("../model/artista/artistaModel")
 
 rota.get('/movimento/todos', async (req, res) => {
     try {
         // Pega todos os movimentos
         const listaMovimentos = await Movimento.find().lean().sort({ nomeMovimento: 1 });
 
+
+        //Para cada movimento vai adicionar as Obras que estão relacionadas nele em um campo "obras", o mesmo ocorre com artista
+
         for (let movimento of listaMovimentos) {
             const obrasRelacionadas = await Obras.find({ fk_nomeMovimento: movimento.nomeMovimento }).sort({ nomeObra: 1 });
+            const ArtistaRelacionados = await Artista.find({fk_nomeMovimento: movimento.nomeMovimento}).sort({nomeArtista: 1});
+
+            //Enquanto houver algo nas listas para relacionar ele continua, caso contrário passa para o próximo movimento.
 
             if (obrasRelacionadas.length > 0) {
                 movimento.obras = obrasRelacionadas;
             }
+            if (ArtistaRelacionados.length > 0) {
+                movimento.artistas = ArtistaRelacionados;
+            }
         }
 
         res.setHeader('Cache-Control', 'max-age=360, s-maxage=360, stale-while-revalidate');
-        res.json(listaMovimentos);
+        res.json(listaMovimentos).status(200);
+    
     } catch (err) {
         res.status(500).json({ "code": "500", "error": err });
     }
