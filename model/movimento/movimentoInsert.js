@@ -5,8 +5,8 @@ dotenv.config()
 
 //  tá com um bug de não pegar o dotenv, depois arrumo
 
-mongoose.connect("mongodb+srv://senai115:senai115@teste.8334gnw.mongodb.net/?retryWrites=true&w=majority",{
-    dbName:"api_obrasArtes"
+mongoose.connect("",{
+    dbName:""
 })
 .then(() =>{
 
