@@ -64,7 +64,7 @@ rota.get('/movimento/:nome' , (req,res) => {
     try{
         Movimento.findOne({nomeMovimento:req.params.nome})
         .then((resultado) => {
-            if(resultado){
+            if(resultado.length > 0){
                 res.setHeader('Cache-Control','max-age=360, s-maxage=360, stale-while-revalidate')
                 res.status(200).json(resultado)
             }
@@ -83,7 +83,7 @@ rota.get('/movimento/:name/obras', (req, res) => {
     try{
         Movimento.find({nomeMovimento:req.params.name})
             .then((movimento) => {
-                if (!movimento) {
+                if (movimento.length > 0) {
                     return res.status(404).json({ message: 'Movimento não encontrado' });
                 }
                 else{

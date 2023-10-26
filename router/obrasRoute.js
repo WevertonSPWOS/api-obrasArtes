@@ -49,7 +49,7 @@ rota.get('/obra/lista' , (req,res) =>{
     try{
         Obra.find({nomeObra:req.params.nome})
         .then((resultado) => {
-            if(resultado){
+            if(resultado.length > 0){
                 res.setHeader('Cache-Control','max-age=360, s-maxage=360, stale-while-revalidate')
                 res.status(200).json(resultado)
             }

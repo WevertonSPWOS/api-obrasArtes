@@ -54,7 +54,7 @@ rota.get('/artista/:nome' , (req,res) => {
     try{
         Artista.findOne({nomeArtista:req.params.nome})
         .then((resultado) => {
-            if(resultado){
+            if(resultado.length > 0){
                 res.setHeader('Cache-Control','max-age=360, s-maxage=360, stale-while-revalidate')
                 res.status(200).json(resultado)
             }
@@ -75,7 +75,7 @@ rota.get('/artista/:name/obras', (req, res) => {
     try{
         Artista.find({nomeArtista:req.params.name})
             .then((artista) => {
-                if (!artista) {
+                if (artista.length == 0) {
                     return res.status(404).json({ message: 'Artista não encontrado' });
                 }
                 else{
