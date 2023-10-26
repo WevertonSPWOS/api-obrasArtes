@@ -49,6 +49,7 @@ var ComentarioSchema = new mongoose.Schema({
     },
 });
 
+//Criando um auto-increment no index
 ComentarioSchema.pre('save', async function (next) {
     if (this.isNew) {
         try {

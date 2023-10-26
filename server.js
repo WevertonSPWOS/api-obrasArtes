@@ -51,4 +51,5 @@ app.use('',rotaComentario)
 
 app.use((req,res,next) => {res.status(404).json("Recurso não encontrado")})
 
+//Abrindo o servidor
 app.listen(process.env.SERVER_PORT, console.log("Servidor aberto na porta: " + process.env.SERVER_PORT)) // Liga o servidor do express

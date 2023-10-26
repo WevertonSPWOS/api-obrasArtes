@@ -1,9 +1,13 @@
+//Importando express para criar as rotas
 const express = require("express")
+const rota = express.Router();
+
+
+// Importando os Modelos
 const Comentario = require("../model/comentario/comentarioModel")
 const Obra = require("../model/obra/obraModel")
 const obraInserir = require("../model/comentario/comentarioInsert")
 
-const rota = express.Router();
 
 rota.get("comentario/todos", (req,res) =>{
 
@@ -21,4 +25,5 @@ rota.post("/comentario/inserir",(req,res) => {
 })
 
 
+//exportando a tora
 module.exports = rota
