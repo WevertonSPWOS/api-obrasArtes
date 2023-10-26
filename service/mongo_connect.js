@@ -1,17 +1,14 @@
-//Importando bibliotecas
+const dotenv = require("dotenv") 
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
-//Configurando variaveis de ambiente
-const dotenv = require('dotenv')
-dotenv.config({path: "../../.env"})
+dotenv.config() // configurando as variaveis de ambiente
 
-//Criando uma função que se conecta ao banco de dados
 async function conectar_bd() {
 ''
     try{
-       await mongoose.connect("mongodb+srv://senai115:senai115@teste.8334gnw.mongodb.net/?retryWrites=true&w=majority", {
-            dbName : "api_obrasArtes"
+       await mongoose.connect(process.env.MONGO_DB_URI, {
+            dbName : process.env.MONGO_DB_NAME,
         })
         .then(() => console.log("Conectado ao banco de dados"))
     } catch(erro){
@@ -19,5 +16,4 @@ async function conectar_bd() {
     }
 }
 
-//Exportando a função
 module.exports = conectar_bd
