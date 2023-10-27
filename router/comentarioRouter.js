@@ -14,7 +14,7 @@ rota.get("comentario/todos", (req,res) =>{
     Comentario.find().sort({})
 })
 
-rota.post("/comentario/inserir",(req,res) => {
+rota.post("comentario/inserir",(req,res) => {
 
     let nome = req.body.nome
     let comentario = req.body.comentario
