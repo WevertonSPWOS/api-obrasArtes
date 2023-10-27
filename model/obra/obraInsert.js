@@ -1,8 +1,8 @@
 const Obra = require("./obraModel")
 const mongoose = require('mongoose')
 
-mongoose.connect("mongodb+srv://senai115:senai115@teste.8334gnw.mongodb.net/?retryWrites=true&w=majority",{
-    dbName:"api_obrasArtes"
+mongoose.connect("",{
+    dbName:""
 })
 .then(() =>{
     const aPersistenciaDaMemoria = new Obra({
