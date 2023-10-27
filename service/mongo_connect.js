@@ -10,8 +10,8 @@ dotenv.config({path: "../../.env"})
 async function conectar_bd() {
 ''
     try{
-       await mongoose.connect("", {
-            dbName : ""
+       await mongoose.connect("mongodb+srv://senai115:senai115@teste.8334gnw.mongodb.net/?retryWrites=true&w=majority", {
+            dbName : "api_obrasArtes"
         })
         .then(() => console.log("Conectado ao banco de dados"))
     } catch(erro){
