@@ -9,12 +9,12 @@ const Obra = require("../model/obra/obraModel")
 const obraInserir = require("../model/comentario/comentarioInsert")
 
 
-rota.get("comentario/todos", (req,res) =>{
+rota.get("/comentario/todos", (req,res) =>{
 
     Comentario.find().sort({})
 })
 
-rota.post("comentario/inserir",(req,res) => {
+rota.post("/comentario/inserir",(req,res) => {
 
     let nome = req.body.nome
     let comentario = req.body.comentario
