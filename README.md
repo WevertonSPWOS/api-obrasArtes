@@ -201,3 +201,11 @@ Npm i
 **Back-end:** Node, Express, Mongoose, Cors\
 **Banco de Dados:** Mongo Atlas
 
+## Autores
+
+- [Ryan](https://github.com/ryanNS3/)
+- [Rodrigo](https://github.com/Rodriguou)
+- [Weverton](https://github.com/WevertonSPWOS/)
+- [Eloisa](https://github.com/eloisalaurentino)
+- [Marcos](https://github.com/gitmvfs/)
+
